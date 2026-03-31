@@ -2,6 +2,7 @@ import os
 
 def mostrar_menu():
 
+    print()
     print(f'{3*"-="} SISTEMA CLÍNICA VIDA+ {3 * "=-"}')
     print('1. Cadastrar paciente')
     print('2. Ver estatisticas')
@@ -12,15 +13,21 @@ def mostrar_menu():
 
     return True
 
+def limpar_terminal():
+
+    os.system('cls')
+
+    return True
+
+
+
 
 dadosPacientes = {}
 pacientes = [{'nome': 'Anderson', 'idade': 20, 'telefone':234724}, {'nome': 'Aissa', 'idade': 19, 'telefone':223724}, {'nome': 'Mocinha', 'idade': 76, 'telefone':21212724}]
 
 while True:
-    print()
-    escolha = 0
 
-    
+    escolha = 0
     
     mostrar_menu()
 
@@ -28,7 +35,7 @@ while True:
         escolha = int(input('Escolha uma opção: '))
         print()
     except:
-        os.system('cls')
+        limpar_terminal()
         print()
         print("Escolha invalida, digite apenas números")
         continue
@@ -36,7 +43,7 @@ while True:
     # Muda as ações dependendo da escolha
     if escolha == 1:
 
-        os.system('cls')
+        limpar_terminal()
         # Faz o cadastro de fato em sistema
         dadosPacientes['nome'] = str(input('Digite o nome do paciente: '))
         dadosPacientes['idade'] = int(input('Digite a idade do paciente: '))
@@ -50,7 +57,7 @@ while True:
         idade = 0
         idadeM = 0
         
-        os.system('cls')
+        limpar_terminal
         # Mostra a quantidade de pacientes cadastrados
         print(f'o número total de pacientes é: {len(pacientes)}')
         print()
@@ -72,7 +79,7 @@ while True:
 
     elif escolha == 3:
         
-        os.system('cls')
+        limpar_terminal()
         busca_paciente = str(input('Digite o nome do paciente para buscar: '))
         
         for p in pacientes:
@@ -86,12 +93,12 @@ while True:
                 print(f'Telefone: {p["telefone"]}')
 
     elif escolha == 4:
-        os.system('cls')
+        limpar_terminal()
         for p in pacientes:
             print(f'Nome: ({p['nome']}), idade: ({p['idade']}) e telefone: ({p['telefone']})')
         
     elif escolha == 5:
         break
     else:
-        os.system('cls')
+        limpar_terminal()
         print('Digite uma opção valida!')
