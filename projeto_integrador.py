@@ -1,5 +1,10 @@
 import os
 
+def limpar_terminal():
+
+    os.system('cls')
+    return True
+
 def mostrar_menu():
 
     print()
@@ -13,17 +18,25 @@ def mostrar_menu():
 
     return True
 
-def limpar_terminal():
+def cadastrar_paciente():
 
-    os.system('cls')
+    dadosPacientes['nome'] = str(input('Digite o nome do paciente: '))
+    dadosPacientes['idade'] = int(input('Digite a idade do paciente: '))
+    dadosPacientes['telefone'] = int(input('Digite o número de telefone: '))
+    pacientes.append(dadosPacientes.copy())
+    print()
+    print('Paciente cadastrado com sucesso!')
 
     return True
+    
+
+
 
 
 
 
 dadosPacientes = {}
-pacientes = [{'nome': 'Anderson', 'idade': 20, 'telefone':234724}, {'nome': 'Aissa', 'idade': 19, 'telefone':223724}, {'nome': 'Mocinha', 'idade': 76, 'telefone':21212724}]
+pacientes = [{'nome': 'Anderson', 'idade': 20, 'telefone':988223359}, {'nome': 'Aissa', 'idade': 19, 'telefone':940028922}, {'nome': 'Mocinha', 'idade': 76, 'telefone':980028922}]
 
 while True:
 
@@ -32,11 +45,12 @@ while True:
     mostrar_menu()
 
     try:
+
         escolha = int(input('Escolha uma opção: '))
         print()
-    except:
+    except ValueError:
+
         limpar_terminal()
-        print()
         print("Escolha invalida, digite apenas números")
         continue
     
@@ -44,27 +58,19 @@ while True:
     if escolha == 1:
 
         limpar_terminal()
-        # Faz o cadastro de fato em sistema
-        dadosPacientes['nome'] = str(input('Digite o nome do paciente: '))
-        dadosPacientes['idade'] = int(input('Digite a idade do paciente: '))
-        dadosPacientes['telefone'] = int(input('Digite o número de telefone: '))
-        pacientes.append(dadosPacientes.copy())
-        print()
-        print('Paciente cadastrado com sucesso!')
-        
-    
+        cadastrar_paciente()
     elif escolha == 2:
         idade = 0
         idadeM = 0
         
-        limpar_terminal
+        limpar_terminal()
         # Mostra a quantidade de pacientes cadastrados
         print(f'o número total de pacientes é: {len(pacientes)}')
         print()
 
         # Mostra a idade média dos pacientes 
-        for p in pacientes:
-            idade += p['idade']
+        for paciente in pacientes:
+            idade += paciente['idade']
         idadeM = idade / len(pacientes)
         print(f'A idade média dos pacientes é {idadeM}')
         print()
@@ -82,20 +88,20 @@ while True:
         limpar_terminal()
         busca_paciente = str(input('Digite o nome do paciente para buscar: '))
         
-        for p in pacientes:
-            if p['nome'] == busca_paciente:
+        for paciente in pacientes:
+            if paciente['nome'] == busca_paciente:
                 print()
                 print(f'Paciente localizado com sucesso!')
                 print()
                 print(f'{3*'-'} cadastro do paciente {3*'-'}')
-                print(f'Nome: {p["nome"]}')
-                print(f'Idade: {p["idade"]}')
-                print(f'Telefone: {p["telefone"]}')
+                print(f'Nome: {paciente["nome"]}')
+                print(f'Idade: {paciente["idade"]}')
+                print(f'Telefone: {paciente["telefone"]}')
 
     elif escolha == 4:
         limpar_terminal()
-        for p in pacientes:
-            print(f'Nome: ({p['nome']}), idade: ({p['idade']}) e telefone: ({p['telefone']})')
+        for paciente in pacientes:
+            print(f'Nome: ({paciente['nome']}), idade: ({paciente['idade']}) e telefone: ({paciente['telefone']})')
         
     elif escolha == 5:
         break
