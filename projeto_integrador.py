@@ -1,8 +1,9 @@
 import os
+import ntpath
 
 def limpar_terminal():
 
-    os.system('cls')
+    os.system('cls' if os.name == 'nt' else 'clear')
     return True
 
 def mostrar_menu():
@@ -29,8 +30,8 @@ def cadastrar_paciente():
 
     return True
     
-
-
+def mostrar_estatisticas():
+    ...
 
 
 
@@ -54,57 +55,61 @@ while True:
         print("Escolha invalida, digite apenas números")
         continue
     
-    # Muda as ações dependendo da escolha
-    if escolha == 1:
+    match escolha:
 
-        limpar_terminal()
-        cadastrar_paciente()
-    elif escolha == 2:
-        idade = 0
-        idadeM = 0
+        case 1:
+
+            limpar_terminal()
+            cadastrar_paciente()
+        case 2:
+            idade = 0
+            idadeM = 0
+            
+            limpar_terminal()
+            
+            print(f'o número total de pacientes é: {len(pacientes)}')
+            print()
+
+            # Mostra a idade média dos pacientes 
+            for paciente in pacientes:
+                idade += paciente['idade']
+            idadeM = idade / len(pacientes)
+            print(f'A idade média dos pacientes é {idadeM}')
+            print()
+
+            # Mostra o paciente mais novo cadastrado e o mais velho
+            mais_velho = max(pacientes, key=lambda x: x['idade'])
+            mais_novo = min(pacientes, key=lambda x: x['idade'])
+
+            print(f'Paciente mais velho {mais_velho["nome"]},  {mais_velho["idade"]} anos')
+            print(f'Paciente mais novo {mais_novo["nome"]},  {mais_novo["idade"]} anos')
+            print()
+
+        case 3:
         
-        limpar_terminal()
-        # Mostra a quantidade de pacientes cadastrados
-        print(f'o número total de pacientes é: {len(pacientes)}')
-        print()
+            limpar_terminal()
+            busca_paciente = str(input('Digite o nome do paciente para buscar: '))
+            
+            for paciente in pacientes:
+                if paciente['nome'] == busca_paciente:
+                    print()
+                    print(f'Paciente localizado com sucesso!')
+                    print()
+                    print(f'{3*'-'} cadastro do paciente {3*'-'}')
+                    print(f'Nome: {paciente["nome"]}')
+                    print(f'Idade: {paciente["idade"]}')
+                    print(f'Telefone: {paciente["telefone"]}')
 
-        # Mostra a idade média dos pacientes 
-        for paciente in pacientes:
-            idade += paciente['idade']
-        idadeM = idade / len(pacientes)
-        print(f'A idade média dos pacientes é {idadeM}')
-        print()
+        case 4:
 
-        # Mostra o paciente mais novo cadastrado e o mais velho
-        mais_velho = max(pacientes, key=lambda x: x['idade'])
-        mais_novo = min(pacientes, key=lambda x: x['idade'])
-
-        print(f'Paciente mais velho {mais_velho["nome"]},  {mais_velho["idade"]} anos')
-        print(f'Paciente mais novo {mais_novo["nome"]},  {mais_novo["idade"]} anos')
-        print()
-
-    elif escolha == 3:
+            limpar_terminal()
+            for paciente in pacientes:
+                print(f'Nome: ({paciente['nome']}), idade: ({paciente['idade']}) e telefone: ({paciente['telefone']})')
         
-        limpar_terminal()
-        busca_paciente = str(input('Digite o nome do paciente para buscar: '))
-        
-        for paciente in pacientes:
-            if paciente['nome'] == busca_paciente:
-                print()
-                print(f'Paciente localizado com sucesso!')
-                print()
-                print(f'{3*'-'} cadastro do paciente {3*'-'}')
-                print(f'Nome: {paciente["nome"]}')
-                print(f'Idade: {paciente["idade"]}')
-                print(f'Telefone: {paciente["telefone"]}')
+        case 5:
 
-    elif escolha == 4:
-        limpar_terminal()
-        for paciente in pacientes:
-            print(f'Nome: ({paciente['nome']}), idade: ({paciente['idade']}) e telefone: ({paciente['telefone']})')
-        
-    elif escolha == 5:
-        break
-    else:
-        limpar_terminal()
-        print('Digite uma opção valida!')
+            break
+
+        case _:
+            limpar_terminal()
+            print('Digite uma opção valida!')
