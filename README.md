@@ -1,7 +1,4 @@
-Projeto integrador do primeiro semestre da Graduação em Análise e Desenvolvimento de Sistemas
-_____________________________________
-|Código em processo de refatoramento|
--------------------------------------
+| Projeto integrador do primeiro semestre da Graduação em Análise e Desenvolvimento de Sistemas |
 
 Foi solicitado que eu desenvolvesse um sistema para uma clinica, onde tivesse as seguintes funções:
 
