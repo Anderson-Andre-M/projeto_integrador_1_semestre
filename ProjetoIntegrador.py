@@ -1,14 +1,7 @@
 import os
 
-dadosPacientes = {}
-pacientes = [{'nome': 'Anderson', 'idade': 20, 'telefone':234724}, {'nome': 'Aissa', 'idade': 19, 'telefone':223724}, {'nome': 'Mocinha', 'idade': 76, 'telefone':21212724}]
+def mostrar_menu():
 
-while True:
-    print()
-    escolha = 0
-
-    # Menu interativo
-    
     print(f'{3*"-="} SISTEMA CLÍNICA VIDA+ {3 * "=-"}')
     print('1. Cadastrar paciente')
     print('2. Ver estatisticas')
@@ -16,6 +9,20 @@ while True:
     print('4. Listar todos os pacientes')
     print('5. Sair')
     print()
+
+    return True
+
+
+dadosPacientes = {}
+pacientes = [{'nome': 'Anderson', 'idade': 20, 'telefone':234724}, {'nome': 'Aissa', 'idade': 19, 'telefone':223724}, {'nome': 'Mocinha', 'idade': 76, 'telefone':21212724}]
+
+while True:
+    print()
+    escolha = 0
+
+    
+    
+    mostrar_menu()
 
     try:
         escolha = int(input('Escolha uma opção: '))
