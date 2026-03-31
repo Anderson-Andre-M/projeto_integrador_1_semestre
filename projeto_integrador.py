@@ -1,13 +1,10 @@
 import os
-import ntpath
 
 def limpar_terminal():
-
     os.system('cls' if os.name == 'nt' else 'clear')
     return True
 
 def mostrar_menu():
-
     print()
     print(f'{3*"-="} SISTEMA CLÍNICA VIDA+ {3 * "=-"}')
     print('1. Cadastrar paciente')
@@ -19,20 +16,62 @@ def mostrar_menu():
 
     return True
 
-def cadastrar_paciente():
+def cadastrar_paciente(nome, idade, telefone):
+    limpar_terminal()
 
-    dadosPacientes['nome'] = str(input('Digite o nome do paciente: '))
-    dadosPacientes['idade'] = int(input('Digite a idade do paciente: '))
-    dadosPacientes['telefone'] = int(input('Digite o número de telefone: '))
-    pacientes.append(dadosPacientes.copy())
+    dadosPacientes['nome'] = nome
+    dadosPacientes['idade'] = idade
+    dadosPacientes['telefone'] = telefone
+    pacientes.append(dadosPacientes.copy()) # verificar esse .copy()
     print()
     print('Paciente cadastrado com sucesso!')
 
     return True
     
-def mostrar_estatisticas():
-    ...
+def quantidade_de_pacientes():
+    return len(pacientes)
 
+def calcular_idade_media():
+    idade_total = 0
+
+    for paciente in pacientes:
+        idade_total += paciente['idade']
+    
+    return idade_total / quantidade_de_pacientes()
+
+def localizar_paciente_mais_velho():
+    return max(pacientes, key= lambda x : x ['idade'])
+
+def localizar_paciente_mais_novo():
+    return min(pacientes, key= lambda x: x ['idade'])
+     
+def mostrar_estatisticas():
+    limpar_terminal()
+
+    print(f'O total de paciente para ser atendidos é {quantidade_de_pacientes()}')
+    print()
+    print(f'A idade média dos pacientes é: {calcular_idade_media():.2f}')
+    print()
+    
+    mais_novo = localizar_paciente_mais_novo()
+    mais_velho = localizar_paciente_mais_velho()
+    print(f'O paciente mais velho é {mais_velho['nome']} com idade {mais_velho['idade']}')
+    print()
+    print(f'O paciente mais novo é {mais_novo['nome']} com idade {mais_novo['idade']}')
+    
+    return True
+
+def buscar_paciente(nome):
+    for paciente in pacientes:
+        if paciente['nome'] == nome:
+            return paciente
+    return None
+
+def listar_todos_pacientes():
+    for paciente in pacientes:
+        print(f'Nome: ({paciente['nome']}), idade: ({paciente['idade']}) e telefone: ({paciente['telefone']})')
+
+    return True
 
 
 
@@ -59,57 +98,50 @@ while True:
 
         case 1:
 
-            limpar_terminal()
-            cadastrar_paciente()
+            nome = input('Digite o nome do paciente: ').capitalize()
+            if len(nome) < 3:
+                print('O nome não existe')
+                continue
+
+            try:
+                idade = int(input('Digite a idade do paciente: '))
+                if idade <= 0:
+                    print('Idade inválida')
+                    continue
+
+                telefone = int(input('Digite o número de telefone: '))
+            except ValueError:
+                print('Digite apenas números')
+                continue
+            
+            cadastrar_paciente(nome, idade, telefone)
         case 2:
-            idade = 0
-            idadeM = 0
             
-            limpar_terminal()
-            
-            print(f'o número total de pacientes é: {len(pacientes)}')
-            print()
-
-            # Mostra a idade média dos pacientes 
-            for paciente in pacientes:
-                idade += paciente['idade']
-            idadeM = idade / len(pacientes)
-            print(f'A idade média dos pacientes é {idadeM}')
-            print()
-
-            # Mostra o paciente mais novo cadastrado e o mais velho
-            mais_velho = max(pacientes, key=lambda x: x['idade'])
-            mais_novo = min(pacientes, key=lambda x: x['idade'])
-
-            print(f'Paciente mais velho {mais_velho["nome"]},  {mais_velho["idade"]} anos')
-            print(f'Paciente mais novo {mais_novo["nome"]},  {mais_novo["idade"]} anos')
-            print()
-
+            mostrar_estatisticas()
         case 3:
         
             limpar_terminal()
-            busca_paciente = str(input('Digite o nome do paciente para buscar: '))
-            
-            for paciente in pacientes:
-                if paciente['nome'] == busca_paciente:
-                    print()
-                    print(f'Paciente localizado com sucesso!')
-                    print()
-                    print(f'{3*'-'} cadastro do paciente {3*'-'}')
-                    print(f'Nome: {paciente["nome"]}')
-                    print(f'Idade: {paciente["idade"]}')
-                    print(f'Telefone: {paciente["telefone"]}')
 
+            nome_paciente_buscado = input('Digite o nome do paciente para buscar: ').capitalize()
+
+            paciente_localizado = buscar_paciente(nome_paciente_buscado)
+
+            if paciente_localizado == None:
+
+                print('Paciente não foi localizado')
+            else:
+                print('Paciente localizado com sucesso: ')
+                print()
+                print(f'Nome: {paciente_localizado['nome']}')
+                print(f'Idade: {paciente_localizado['idade']}')
+                print(f'Telefone: {paciente_localizado['telefone']}')
         case 4:
 
             limpar_terminal()
-            for paciente in pacientes:
-                print(f'Nome: ({paciente['nome']}), idade: ({paciente['idade']}) e telefone: ({paciente['telefone']})')
-        
+            listar_todos_pacientes()           
         case 5:
 
             break
-
         case _:
             limpar_terminal()
             print('Digite uma opção valida!')

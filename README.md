@@ -9,15 +9,15 @@ Foi solicitado que eu desenvolvesse um sistema para uma clinica, onde tivesse as
 
 2- Localizar um paciente através do nome
 
-3- Mostrar a estatistica geral dos pacientes como:
-  Idade média
-  Paciente mais velho 
-  Paciente mais novo
+3- Mostrar a estatistica geral dos pacientes como: 
+  Idade média,
+  Paciente mais velho,
+  Paciente mais novo.
   
 4- Listar todos os pacientes e seus respectivos dados como:
-  Nome
-  Idade
-  Telefone
+  Nome,
+  Idade,
+  Telefone.
 
 Utilizando loops, estruturas de decisões, Listas e Dicionarios para representar um paciente.
 
