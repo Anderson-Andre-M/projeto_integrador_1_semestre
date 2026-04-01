@@ -4,6 +4,7 @@ def limpar_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
     return True
 
+
 def mostrar_menu():
     print()
     print(f'{3*"-="} SISTEMA CLÍNICA VIDA+ {3 * "=-"}')
@@ -16,20 +17,23 @@ def mostrar_menu():
 
     return True
 
+
 def cadastrar_paciente(nome, idade, telefone):
     limpar_terminal()
 
     dadosPacientes['nome'] = nome
     dadosPacientes['idade'] = idade
     dadosPacientes['telefone'] = telefone
-    pacientes.append(dadosPacientes.copy()) # verificar esse .copy()
+    pacientes.append(dadosPacientes)
     print()
     print('Paciente cadastrado com sucesso!')
 
     return True
     
+
 def quantidade_de_pacientes():
     return len(pacientes)
+
 
 def calcular_idade_media():
     idade_total = 0
@@ -39,12 +43,15 @@ def calcular_idade_media():
     
     return idade_total / quantidade_de_pacientes()
 
+
 def localizar_paciente_mais_velho():
     return max(pacientes, key= lambda x : x ['idade'])
+
 
 def localizar_paciente_mais_novo():
     return min(pacientes, key= lambda x: x ['idade'])
      
+
 def mostrar_estatisticas():
     limpar_terminal()
 
@@ -61,11 +68,13 @@ def mostrar_estatisticas():
     
     return True
 
+
 def buscar_paciente(nome):
     for paciente in pacientes:
         if paciente['nome'] == nome:
             return paciente
     return None
+
 
 def listar_todos_pacientes():
     for paciente in pacientes:
@@ -85,11 +94,9 @@ while True:
     mostrar_menu()
 
     try:
-
         escolha = int(input('Escolha uma opção: '))
         print()
     except ValueError:
-
         limpar_terminal()
         print("Escolha invalida, digite apenas números")
         continue
@@ -97,7 +104,6 @@ while True:
     match escolha:
 
         case 1:
-
             nome = input('Digite o nome do paciente: ').capitalize()
             if len(nome) < 3:
                 print('O nome não existe')
@@ -108,26 +114,21 @@ while True:
                 if idade <= 0:
                     print('Idade inválida')
                     continue
-
                 telefone = int(input('Digite o número de telefone: '))
             except ValueError:
                 print('Digite apenas números')
                 continue
-            
+
             cadastrar_paciente(nome, idade, telefone)
         case 2:
-            
             mostrar_estatisticas()
         case 3:
-        
             limpar_terminal()
 
             nome_paciente_buscado = input('Digite o nome do paciente para buscar: ').capitalize()
-
             paciente_localizado = buscar_paciente(nome_paciente_buscado)
 
             if paciente_localizado == None:
-
                 print('Paciente não foi localizado')
             else:
                 print('Paciente localizado com sucesso: ')
@@ -136,11 +137,9 @@ while True:
                 print(f'Idade: {paciente_localizado['idade']}')
                 print(f'Telefone: {paciente_localizado['telefone']}')
         case 4:
-
             limpar_terminal()
             listar_todos_pacientes()           
         case 5:
-
             break
         case _:
             limpar_terminal()
